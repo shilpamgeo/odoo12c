@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="matter_master_form_id" model="ir.ui.view">
+        <field name="name">matter.details.form</field>
+        <field name="model">matter.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Evidence"
+                            class="oe_stat_button oe_right"
+                            icon="fa-building-o"  type="action" name='button_box'/>
+
+                    <button string="Trial"
+                            class="oe_stat_button oe_right"
+                            icon="fa-building-o"  type="action" name='button_box'/>
+
+                    <button string="Invoice"
+                            class="oe_stat_button oe_right"
+                            icon="fa-building-o"  type="action" name='button_box'/>
+                    <button name="action_payment" type="object" string="Make Payment"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="open_date"/>
+                            <field name="client"/>
+                            <field name="lawyer"/>
+                            <field name="type_of_matter"/>
+                            <field name="judge"/>
+                        </group>
+                        <group>
+                            <field name="category_of_matter"/>
+                            <field name="payment_type"/>
+                            <field name="close_date"/>
+                            <field name="firm"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="matter_master_contact" string="Contact">
+<!--                            <field name="type_of_matter"/>-->
+                            <group>
+                                <group>
+<!--                                     <field name="close_date"/>-->
+                                    <field name="client_name"/>
+                                    <field name="client_no"/>
+                                </group>
+                                <group>
+                                    <field name="client_address"/>
+                                    <field name="client_email"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page name="matter_master_documents" string="Document">
+
+                            <group>
+                                <group>
+                                    <field name="client_name"/>
+                                    <field name="client_no"/>
+                                    <field name="owner"/>
+                                </group>
+                                <group>
+                                    <field name="upload"/>
+                                    <field name="open_date"/>
+                                    <field name="description"/>
+                                </group>
+                            </group>
+
+                        </page>
+
+                        <page name="matter_master_invoices" string="Invoices">
+
+                        </page>
+                        <page name="matter_master_expenses" string="Expenses">
+                            <group>
+                                <field name="open_date"/>
+                            </group>
+
+                        </page>
+                        <page name="matter_master_time_entries" string="Time Entries">
+                                <group>
+                                    <group>
+                                        <field name="name_seq"/>
+                                        <field name="open_date"/>
+                                    </group>
+                                    <group>
+                                        <field name="rate"/>
+                                        <field name="Amount"/>
+                                    </group>
+                                    <group>
+                                        <field name="owner"/>
+                                        <field name="time_spent"/>
+                                        <field name="time_invoiced"/>
+                                    </group>
+                                    <group>
+                                        <field name="payment_type"/>
+                                        <field name="unit_measure"/>
+                                    </group>
+                                    <group>
+                                        <field name="activity"/>
+                                    </group>
+                                    <group>
+                                        <field name="description"/>
+                                    </group>
+                                </group>
+                        </page>
+                        <page name="matter_master_task" string="Task">
+<!--                            <field name="matter_details_id">-->
+<!--                                <tree editable="bottom">-->
+<!--                                    <field name="client"/>-->
+<!--                                    <field name="category_of_matter"/>-->
+<!--                                    <field name="type_of_matter"/>-->
+<!--                                    <field name="payment_type"/>-->
+<!--                                    <field name="matter_details_id2" invisible="1"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+                        </page>
+                        <page name="matter_master_calender" string="Calender">
+                            <group>
+                                <group>
+                                    <field name="open_date"/>
+                                    <field name="close_date"/>
+                                </group>
+                                <group>
+                                    <field name="description"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="matter_master_settings" string="Settings">
+
+                        </page>
+
+                        <page name="matter_master_note" string="Note">
+
+                        </page>
+                    </notebook>
+<!--                    <field name="matter_id" invisible="0"/>-->
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="matter_master_view_tree" model="ir.ui.view">
+        <field name="name">matter.master.tree</field>
+        <field name="model">matter.details</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="open_date"/>
+                <field name="client"/>
+                <field name="lawyer"/>
+                <field name="type_of_matter"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_matter_master" model="ir.actions.act_window">
+        <field name="name">Matter Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">matter.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="account_invoice_view_form_inherit_payment" model="ir.ui.view">
+        <field name="name">account.invoice.inherit.payment</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <!--
+            The user must capture/void the authorized transactions before registering a new payment.
+            -->
+            <!--                <xpath expr="//button[@id='account_invoice_payment_btn']" position="after">-->
+            <!--                    <field name="payment_type"/>-->
+            <!--                    <field name="payment_amount"/>-->
+            <!--                </xpath>-->
+        </field>
+    </record>
+</odoo>

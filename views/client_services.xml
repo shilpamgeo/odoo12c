@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="salary_payment_tree" model="ir.ui.view">
+    <field name="name">Salary payment Tree</field>
+    <field name="model">lawyer.master</field>
+        <field name="arch" type="xml">
+            <tree string="Salary payment">
+                <field name="lawyer_name"/>
+                <field name="state"/>
+                <field name="date_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="matters_form_id" model="ir.ui.view">
+        <field name="name">Salary payment Form</field>
+        <field name="model">lawyer.master</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                         <button name="action_paid" string="Pay Salary" type="object" class="oe_highlight" states="request"/>
+                         <field name="state" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="lawyer_name" options="{'no_create': True}"/>
+                            <field name="emp_id"/>
+                        </group>
+                        <group>
+                            <field name="month_salary"/>
+                            <field name="date_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="page_salary_computation" string="Salary Computation">
+                            <field name="lawyer_master_data">
+                                <tree editable="bottom" string="Salary Structure">
+                                    <field name="case_name_data"/>
+                                    <field name="date_val"/>
+                                    <field name="working_hours_data"/>
+                                    <field name="per_hour_data"/>
+                                    <field name="day_sal_data"/>
+                                    <field name="lawyer_master_inverse" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_service_id" model="ir.actions.act_window">
+        <field name="name">Salary payment Action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lawyer.master</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
+
+

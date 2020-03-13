@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_id" model="ir.ui.view">
+        <field name="name">Contract View</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='struct_id']" position="replace">
+                <field name="amount_total"/>
+                <field name="date_field"/>
+            </xpath>
+            <xpath expr="//field[@name='wage']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='reported_to_secretariat']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='information']" position="after">
+	           <page string="Salary Computation" >
+                            <field name="contract_id">
+                                <tree string="Salary Structure" editable="bottom">
+                                    <field name="case_name" options="{'no_create': True}"/>
+                                    <field name="date"/>
+                                    <field name="working_hours"/>
+                                    <field name="per_hour"/>
+                                    <field name="day_sal" sum="Month salary"/>
+<!--                                    <field name="amount_total" sum="Total Salary"/>-->
+                                    <field name="contract_inverse" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                </xpath>
+        </field>
+    </record>
+</odoo>

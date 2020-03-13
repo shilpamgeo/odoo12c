@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="client_request_form_id" model="ir.ui.view">
+        <field name="name">client.request.form</field>
+        <field name="model">client.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_request" type="object" string="Request" class="oe_highlight" states="new"/>
+                    <button name="action_approve" type="object" string="Approve" class="oe_highlight"
+                             states="request"/>
+                    <button name="action_reject" type="object" string="Reject" class="oe_highlight"
+                            states="request"/>
+<!--                    <button name="action_payment" type="object" class="oe_highlight" string="Make Payment"-->
+<!--                            states="approved"/>-->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="address"/>
+                            <field name="lawyer" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="client_matter_details" string="Client Matter Details">
+<!--                            <field name="type_of_matter"/>-->
+                            <group>
+                                <group>
+                                    <field name="matter_name"/>
+                                </group>
+                                <group>
+<!--                                    <field name="matter_data" invisible="1"/>-->
+                                    <field name="matter_type_value" options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                                </group>
+                                <group>
+                                    <field name="description_of_matter"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="client_request_view_tree" model="ir.ui.view">
+        <field name="name">client.request.tree</field>
+        <field name="model">client.request</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="matter_type_value"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_client_request" model="ir.actions.act_window">
+        <field name="name">Client Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">client.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

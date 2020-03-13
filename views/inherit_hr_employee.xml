@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_id" model="ir.ui.view">
+        <field name="name">Employee View</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='notes']" position="before">
+                <group>
+                    <group>
+
+                         <field  name="emp_id" invisible="1"/>
+<!--                        <field name="wage_per_case"/>-->
+<!--                        <field name="institute_name"/>-->
+
+                    </group>
+
+<!--                        <group>-->
+<!--                             <field name="start_work"/>-->
+<!--                            <field name="end_work"/>-->
+<!--                            <field name="lunch_hour"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="work_hours"/>-->
+<!--                            <field name="total_hours"/>-->
+<!--                            <field name="per_hour"/>-->
+<!--                        </group>-->
+<!--                        <group>-->
+<!--                            <field name="salary"/>-->
+<!--                        </group>-->
+                </group>
+
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <header>
+                    <button name="action_report" type="object" class="oe_highlight" string="Print Matter Report"/>
+                </header>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+     <record id="university_tree_id" model="ir.ui.view">
+        <field name="name">University Types</field>
+        <field name="model">university.type</field>
+        <field name="arch" type="xml">
+            <tree string="University Types">
+                <field name="university_name"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="university_form_id" model="ir.ui.view">
+        <field name="name">University Types</field>
+        <field name="model">university.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="university_name"/>
+                        </group>
+                        <group>
+                            <field name="year"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_university_form" model="ir.actions.act_window">
+        <field name="name">University Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">university.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

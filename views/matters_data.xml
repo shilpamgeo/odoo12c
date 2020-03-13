@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="matter_master_form_id" model="ir.ui.view">
+        <field name="name">matter.details.form</field>
+        <field name="model">matters.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_payment"
+                            string="Make Payment"
+                            class="oe_highlight"
+                            type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="client" options="{'no_create': True}"/>
+                            <field name="lawyer"/>
+                            <field name="type_of_matter"/>
+                        </group>
+                        <group>
+                            <field name="category_of_matter"/>
+                            <field name="payment_type"/>
+                            <field name="firm"/>
+                        </group>
+                    </group>
+                <notebook>
+                    <page name="matter_master_contact_entries" string="Contact">
+                        <field name="matter_id">
+                            <tree editable="bottom">
+                                <field name="client_name"/>
+                                <field name="client_no"/>
+                                <field name="client_address"/>
+                                <field name="client_email"/>
+                                <field name="matter_id_inverse" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="matter_master_documents_entries" string="Document">
+                        <field name="matter_doc">
+                            <tree editable="bottom">
+                               <field name="upload"/>
+                                <field name="description"/>
+                                <field name="matter_documents_inverse" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Invoice"/>
+                    <page string="Expenses"/>
+                    <page name="matter_master_time_entries" string="Time Entries">
+                        <field name="matter_time">
+                            <tree editable="bottom">
+                                <field name="time_invoiced"/>
+                                <field name="unit_measure"/>
+                                <field name="matter_time_inverse" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="matter_master_date_entries" string="Date Entries">
+                        <field name="matter_date">
+                            <tree editable="bottom">
+                                <field name="open_date"/>
+                                <field name="close_date"/>
+                                <field name="matter_date_inverse" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="matter_master_view_tree" model="ir.ui.view">
+        <field name="name">matter.master.tree</field>
+        <field name="model">matters.details</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="client"/>
+                <field name="category_of_matter"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_matter_master" model="ir.actions.act_window">
+        <field name="name">Matter Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">matters.details</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

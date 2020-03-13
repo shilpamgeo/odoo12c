@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            string="Lawyer Data"
+            id="action_report_production_order"
+            model="hr.employee"
+            name="Lawyer Dta"
+            file="hr.employee.report_templates"
+            report_type="qweb-pdf"
+        />
+    </data>
+</odoo>

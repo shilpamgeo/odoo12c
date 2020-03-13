@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem id="main_menu_services" name="Services"/>
+                <menuitem id="sub_menu_management" name="Law Management" parent="main_menu_services" sequence="2"/>
+
+                        <menuitem id="sub_menu_client" name="Client" parent="sub_menu_management"
+                                  action="action_view_clients"/>
+                        <menuitem id="sub_menu_lawyer" name="Lawyers" parent="sub_menu_management"
+                                  action="action_view_lawyers"/>
+
+                        <menuitem id="sub_menu_request" name="Client Request" parent="sub_menu_management"
+                                  action="action_client_request"/>
+                        <menuitem id="sub_menu_matter" name="Matters" parent="sub_menu_management"
+                                  action="action_matter_master"/>
+
+                <menuitem id="sub_menu_configuration" name="Configuration" parent="main_menu_services" sequence="3"/>
+
+                        <menuitem id="sub_menu_matters" name="Matter Type" parent="sub_menu_configuration"
+                                  action="action_menu_mattter"/>
+        
+                        <menuitem id="sub_menu_universities" name="University" parent="sub_menu_configuration"
+                                  action="action_university_form"/>
+
+                        <menuitem id="sub_menu_services" name="Lawyer Master" parent="sub_menu_configuration"
+                                  action="action_service_id"/>
+
+<!--                        <menuitem id="sub_menu_universities" name="Universities" parent="sub_menu_configuration"-->
+<!--                                  action=""/>-->
+
+        <!--        <menuitem id="menu_operations" name="Operations" parent="menu_legal_firm"/>-->
+        <!--        <menuitem id="menu_master_data" name="Master Data" parent="menu_legal_firm"/>-->
+        <!--        <menuitem id="menu_pivot_report" name="Reporting" parent="menu_legal_firm"/>-->
+        <!--         <menuitem id="legal_firm_report" name="Pivot Report" parent="legal_case_management.menu_pivot_report"-->
+        <!--                  action="action_view_pivot" />-->
+        <!--        <menuitem id="legal_firm_case" name="Case Register" parent="legal_case_management.menu_operations"-->
+        <!--                  action="action_view_cases" />-->
+        <!--        <menuitem id="legal_firm_lawyer" name="Lawyers" parent="legal_case_management.menu_master_data"-->
+        <!--                  action="action_view_lawyers"/>-->
+        <!--        <menuitem id="legal_firm_client" name="Clients" parent="legal_case_management.menu_master_data"-->
+        <!--		          action="action_view_clients"/>-->
+</odoo>
