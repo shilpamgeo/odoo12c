@@ -29,14 +29,6 @@ class ClientRequest(models.Model):
     matter_type_value = fields.Many2one("matter.type", string="Matter Type", required=True)
     description_of_matter = fields.Text("Description")
 
-    # @api.multi
-    # @api.constrains('phone')
-    # def check_phone_number(self):
-    #     for rec in self:
-    #         if rec.phone and len(rec.phone) != 10:
-    #             raise ValidationError(_('Contact number is Invalid'))
-    #         return True
-
     @api.multi
     def action_request(self):
         for rec in self:
@@ -53,6 +45,8 @@ class ClientRequest(models.Model):
         self.env['matters.details'].create({
             'client': self.name.name,
             'category_of_matter': self.matter_name,
+            'lawyer': self.lawyer.name,
+            'type_of_matter': self.matter_type_value.matter_name,
         })
         self.state = 'approved'
 

@@ -11,8 +11,9 @@ matter_documents_id,matter_documents,model_matter_documents,,1,1,1,1
 matter_time_id,matter_time,model_matter_time,,1,1,1,1
 matter_date_id,matter_date,model_matter_date,,1,1,1,1
 contract_wage_id,contract_wage,model_contract_wage,,1,1,1,1
+act_data_id,act_data_name,model_act_data,,1,1,1,1
+matter_trial_id,matter_trial_name,model_matter_trial,,1,1,1,1
 matter_type_id,matter_type_name,legal_case_management.model_matter_type,,1,1,1,1
-fee_type_id,fee_type_name,legal_case_management.model_fee_types,,1,1,1,1
 university_type_id,university_type_name,legal_case_management.model_university_type,,1,1,1,1
 lawyer_master_id,lawyer_master_name,legal_case_management.model_lawyer_master,,1,1,1,1
 lawyer_service_id,lawyer_service_name,legal_case_management.model_lawyer_service,,1,1,1,1

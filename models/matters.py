@@ -5,28 +5,59 @@ class MatterDetails(models.Model):
     _name = 'matters.details'
 
     open_date = fields.Date(string='Open Date')
-    client = fields.Many2one('client.request', string='Customer', required=True,  domain=[('state', '=', 'approved')])
-    lawyer = fields.Char(string="Lawyer", readonly=True)
-    type_of_matter = fields.Many2one('matter.type', string='Type Of Matter')
+    client = fields.Char(string='Customer')
+    lawyer = fields.Char(string="Lawyer")
+    type_of_matter = fields.Char(string='Type Of Matter')
     category_of_matter = fields.Char(string='Category Of Matter', required=True)
-    payment_type = fields.Char(string='Payment Type')
     close_date = fields.Date(string='Close Date')
     matter = fields.Char(string='Matter')
     judge = fields.Char(string="Judge")
-    firm = fields.Char(string="Firm")
     number = fields.Char(string="Number")
     matter_id = fields.One2many('matters.data', 'matter_id_inverse', string="Matter")
     matter_doc = fields.One2many('matter.documents', 'matter_documents_inverse')
     matter_time = fields.One2many('matter.time', 'matter_time_inverse')
     matter_date = fields.One2many('matter.date', 'matter_date_inverse')
+    state = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'),
+                                     ('in_progress', 'In Progress'), ('won', 'Won'), ('loss', 'Loss')], default='draft')
+    act_data = fields.One2many('act.data', 'act_data_inverse')
+    matter_trial = fields.One2many('matter.trial', 'matter_trial_inverse')
+
+    @api.multi
+    def action_approved(self):
+        for rec in self:
+            rec.state = "approved"
+
+    @api.multi
+    def action_progress(self):
+        for rec in self:
+            rec.state = "in_progress"
+
+    @api.multi
+    def action_won(self):
+        for rec in self:
+            rec.state = "won"
+
+    @api.multi
+    def action_loss(self):
+        for rec in self:
+            rec.state = "Loss"
+
+
+class MatterTrail(models.Model):
+    _name = 'matter.trial'
+
+    matter_trial_inverse = fields.Many2one('matters.details')
+    trial_name = fields.Char('Trial Name')
+    trial_matter = fields.Char(related='matter_trial_inverse.type_of_matter')
+    trial_date = fields.Date()
 
     @api.multi
     def action_payment(self):
         invoice = self.env['account.invoice'].create({
-            'partner_id': self.client,
-            'payment_term_id': self.type_of_matter.id,
+            'partner_id': self.matter_trial_inverse.id,
+            'payment_term_id': self.trial_matter,
             'invoice_line_ids': [(0, 0, {
-                'name': self.type_of_matter.id,
+                'name': self.trial_name,
                 'product_id': 1,
                 'quantity': 1,
                 'price_unit': 1000,
@@ -36,10 +67,19 @@ class MatterDetails(models.Model):
         return invoice
 
 
+class ActData(models.Model):
+    _name = 'act.data'
+
+    act_data_inverse = fields.Many2one('matters.details')
+    act_no = fields.Char(string="Section Number")
+    act_name = fields.Char(string="Act Name")
+    case_category = fields.Char(string="Case Category", related="act_data_inverse.type_of_matter")
+
+
 class MatterData(models.Model):
     _name = 'matters.data'
 
-    client_name = fields.Char(string="Name")
+    client_name = fields.Char(string="Name", related="matter_id_inverse.client")
     client_no = fields.Char(string="Contact Number")
     client_address = fields.Char(string="Address")
     client_email = fields.Char(string="Email")
