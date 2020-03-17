@@ -208,6 +208,28 @@ class Lawyers(models.Model):
 
     emp_id = fields.Many2one('hr.contract')
 
+    @api.multi
+    def action_report(self):
+        # datas = {'emp_id': self.emp_id}
+        return self.env.ref('legal_case_management.action_report_lawyer_data').report_action(self)
+
+
+# class LawyerReport(models.Model):
+#     _name = 'report.legal_case_management.lawyer_report_template'
+#
+#     @api.model
+#     def _get_report_values(self, docids, data=None):
+#         x = data['emp_id']
+#         return {
+#             'doc_ids': docids,
+#             'x':x
+#         }
+
+
+
+
+
+
 
 
 

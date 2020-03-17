@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+<!--        <template id="lawyer_report_template">-->
+<!--            <t t-call="web.html_container">-->
+<!--&lt;!&ndash;                <t t-call="report.internal_layout">&ndash;&gt;-->
+<!--                 <t t-call="web.external_layout">-->
+<!--                    <div class="page">-->
+<!--                        <h1>Lawyer Data</h1>-->
+
+<!--                        <div class="row mt32 mb32">-->
+<!--                            <t t-foreach="x" t-as="x">-->
+<!--                                <span t-esc="x"/>-->
+<!--                            </t>-->
+<!--                            <div class="col-2">-->
+<!--                                <strong>Lawyer Name:</strong>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--        </template>-->
+
+        <template id="lawyer_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout"><br/>
+                         <h1>Lawyer Data</h1><br/>
+                         Lawyer Name: <t t-esc="doc.name"/><br/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
         <report
             string="Lawyer Data"
-            id="action_report_production_order"
+            id="action_report_lawyer_data"
             model="hr.employee"
-            name="Lawyer Dta"
-            file="hr.employee.report_templates"
+            name="legal_case_management.lawyer_report_template"
+            file="legal_case_management.lawyer_report_template"
             report_type="qweb-pdf"
         />
     </data>

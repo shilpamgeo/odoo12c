@@ -53,19 +53,24 @@
                                  <field name="trial_date"/>
                                 <field name="trial_name"/>
                                 <field name="trial_matter"/>
+                                <field name="matter_state" invisible="1"/>
                                 <field name="matter_trial_inverse" invisible="1"/>
+                                <button name="action_payment" type="object"
+                                        string="Make Payment" class="oe_highlight"
+                                        attrs="{'invisible':[('matter_state', 'in',
+                                        ('draft', 'approved', 'won', 'loss'))]}"/>
                             </tree>
-<!--                            <button name="action_payment" type="object" string="Payment" class="oe_highlight"/>-->
                         </field>
                     </page>
-                    <page name="matter_master_documents_entries" string="Document">
-                        <field name="matter_doc">
-                            <tree editable="bottom">
-                               <field name="upload"/>
+                    <page name="matter_master_documents_entries" string="Evidence">
+                        <group>
+                            <group>
+                                <field name="upload"/>
+                            </group>
+                            <group>
                                 <field name="description"/>
-                                <field name="matter_documents_inverse" invisible="1"/>
-                            </tree>
-                        </field>
+                            </group>
+                        </group>
                     </page>
                     <page string="Invoice"/>
                     <page string="Expenses"/>

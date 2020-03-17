@@ -3,6 +3,7 @@ from odoo import models,fields, api, _
 
 class MatterDetails(models.Model):
     _name = 'matters.details'
+    _rec_name = 'client'
 
     open_date = fields.Date(string='Open Date')
     client = fields.Char(string='Customer')
@@ -14,9 +15,11 @@ class MatterDetails(models.Model):
     judge = fields.Char(string="Judge")
     number = fields.Char(string="Number")
     matter_id = fields.One2many('matters.data', 'matter_id_inverse', string="Matter")
-    matter_doc = fields.One2many('matter.documents', 'matter_documents_inverse')
+    # matter_doc = fields.One2many('matter.documents', 'matter_documents_inverse')
     matter_time = fields.One2many('matter.time', 'matter_time_inverse')
     matter_date = fields.One2many('matter.date', 'matter_date_inverse')
+    upload = fields.Binary(string="Upload")
+    description = fields.Text()
     state = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'),
                                      ('in_progress', 'In Progress'), ('won', 'Won'), ('loss', 'Loss')], default='draft')
     act_data = fields.One2many('act.data', 'act_data_inverse')
@@ -49,15 +52,16 @@ class MatterTrail(models.Model):
     matter_trial_inverse = fields.Many2one('matters.details')
     trial_name = fields.Char('Trial Name')
     trial_matter = fields.Char(related='matter_trial_inverse.type_of_matter')
-    trial_date = fields.Date()
+    trial_date = fields.Date(required=True)
+    matter_state = fields.Selection(related="matter_trial_inverse.state")
 
     @api.multi
     def action_payment(self):
         invoice = self.env['account.invoice'].create({
             'partner_id': self.matter_trial_inverse.id,
-            'payment_term_id': self.trial_matter,
+            # 'payment_term_id': self.trial_matter,
             'invoice_line_ids': [(0, 0, {
-                'name': self.trial_name,
+                'name': self.trial_matter,
                 'product_id': 1,
                 'quantity': 1,
                 'price_unit': 1000,
@@ -84,16 +88,6 @@ class MatterData(models.Model):
     client_address = fields.Char(string="Address")
     client_email = fields.Char(string="Email")
     matter_id_inverse = fields.Many2one('matters.details')
-
-
-class Matterdocuments(models.Model):
-    _name = 'matter.documents'
-
-    owner = fields.Char(string="Owner Name")
-    upload = fields.Binary(string="Upload")
-    description = fields.Text()
-    activity = fields.Text()
-    matter_documents_inverse = fields.Many2one('matters.details')
 
 
 class MatterTime(models.Model):

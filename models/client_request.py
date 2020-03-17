@@ -13,7 +13,7 @@ class ClientRequest(models.Model):
     _rec_name = 'name'
     _order = "id desc"
 
-    name = fields.Many2one('client.confirm', string='Customer', required=True)
+    name = fields.Many2one('res.partner', string='Customer', required=True)
     phone = fields.Char(string='Contact Number', required=True)
     address = fields.Char(string='Address')
     email = fields.Char(string='Email')
@@ -28,6 +28,7 @@ class ClientRequest(models.Model):
     matter_name = fields.Char(string="Matter Name", required=True)
     matter_type_value = fields.Many2one("matter.type", string="Matter Type", required=True)
     description_of_matter = fields.Text("Description")
+    payment_type = fields.Boolean("Payment Type:Trials")
 
     @api.multi
     def action_request(self):
@@ -54,23 +55,6 @@ class ClientRequest(models.Model):
     def action_reject(self):
         for rec in self:
             rec.state = "rejected"
-
-    # @api.multi
-    # def action_payment(self):
-    #
-    #     invoice = self.env['account.invoice'].create({
-    #         'partner_id': self.name.id,
-    #         'payment_term_id': self.matter_type_value.id,
-    #         'invoice_line_ids': [(0, 0, {
-    #             'name': self.matter_type_value.id,
-    #             'product_id': 1,
-    #             'quantity': 1,
-    #             'price_unit': self.matter_type_value.matter_amount,
-    #             'account_id': 12,
-    #         })]
-    #     })
-    #     self.state = 'paid'
-    #     return invoice
 
 
 
