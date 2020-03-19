@@ -17,12 +17,13 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="client" options="{'no_create': True}"/>
-                            <field name="lawyer"/>
+                            <field name="client" options="{'no_create': True}"
+                                   attrs="{'readonly': [('state','=', 'in_progress')]}"/>
+                            <field name="lawyer" attrs="{'readonly': [('state','=', 'in_progress')]}"/>
                         </group>
                         <group>
-                            <field name="type_of_matter"/>
-                            <field name="category_of_matter"/>
+                            <field name="type_of_matter" attrs="{'readonly': [('state','=', 'in_progress')]}"/>
+                            <field name="category_of_matter" attrs="{'readonly': [('state','=', 'in_progress')]}"/>
                         </group>
                     </group>
                 <notebook>

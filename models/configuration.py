@@ -59,17 +59,15 @@ class ServiceTypes(models.Model):
 
     @api.multi
     def action_paid(self):
-        payslip = self.env['hr.payslip'].create({
-            'employee_id': self.lawyer_name.id,
-            'date_from': datetime.now(),
-            'date_to': datetime.now(),
-        })
         contract = self.env['hr.contract'].create({
             'name': self.emp_id,
             'employee_id': self.lawyer_name.id,
-            'wage': 5000.0,
+            'wage': self.month_salary,
             'amount_total': self.month_salary,
             'date_field': self.date_id,
+            'type_id': 1,
+            'date_start': self.date_id,
+            'resource_calender_id': 40,
             'contract_id': [(0, 0, {
                 'case_name': line.case_name_data.id,
                 'per_hour': line.per_hour_data,
@@ -78,8 +76,26 @@ class ServiceTypes(models.Model):
                 'date': line.date_val,
             }) for line in self.lawyer_master_data]
         })
+        print("entered")
+        payslip = self.env['hr.payslip'].create({
+            'employee_id': self.lawyer_name.id,
+            'date_from': self.lawyer_master_data.date_val,
+            'date_to': datetime.now(),
+            'contract_id': contract.id,
+            'struct_id': 1,
+            'line_ids': [(0, 0, {
+                'name': self.lawyer_name.name,
+                'code': self.emp_id,
+                'category_id': self.lawyer_master_data.case_name_data.id,
+                'quantity': self.lawyer_master_data.per_hour_data,
+                'rate': self.lawyer_master_data.working_hours_data,
+                'salary_rule_id': self.env['hr.salary.rule'].search([('name', '=', 'Basic Salary')]).id,
+                'amount': self.month_salary,
+                'total': self.month_salary
+            })]
+        })
         self.state = 'paid'
-        return payslip, contract
+        return contract, payslip
 
 
 class LawyerService(models.Model):

@@ -6,10 +6,10 @@ class MatterDetails(models.Model):
     _rec_name = 'client'
 
     open_date = fields.Date(string='Open Date')
-    client = fields.Char(string='Customer', domain=[('state', '=', 'in_progress')])
-    lawyer = fields.Char(string="Lawyer", domain=[('state', '=', 'in_progress')])
-    type_of_matter = fields.Char(string='Type Of Matter', domain=[('state', '=', 'in_progress')])
-    category_of_matter = fields.Char(string='Category Of Matter', required=True, domain=[('state', '=', 'in_progress')])
+    client = fields.Char(string='Customer')
+    lawyer = fields.Char(string="Lawyer")
+    type_of_matter = fields.Char(string='Type Of Matter')
+    category_of_matter = fields.Char(string='Category Of Matter', required=True)
     close_date = fields.Date(string='Close Date')
     matter = fields.Char(string='Matter')
     judge = fields.Char(string="Judge")
@@ -50,7 +50,7 @@ class MatterTrail(models.Model):
     _name = 'matter.trial'
 
     matter_trial_inverse = fields.Many2one('matters.details')
-    trial_name = fields.Char('Trial Name')
+    trial_name = fields.Char('Trial Name', required = True)
     trial_matter = fields.Char(related='matter_trial_inverse.type_of_matter')
     trial_date = fields.Date(required=True)
     matter_state = fields.Selection(related="matter_trial_inverse.state")
