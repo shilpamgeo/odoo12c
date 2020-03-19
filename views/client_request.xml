@@ -40,9 +40,9 @@
                                 <group>
                                     <field name="description_of_matter"/>
                                 </group>
-                                <group>
-                                    <field name="payment_type"/>
-                                </group>
+<!--                                <group>-->
+<!--                                    <field name="payment_type"/>-->
+<!--                                </group>-->
                             </group>
                         </page>
                     </notebook>

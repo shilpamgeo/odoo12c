@@ -6,21 +6,21 @@ class MatterDetails(models.Model):
     _rec_name = 'client'
 
     open_date = fields.Date(string='Open Date')
-    client = fields.Char(string='Customer')
-    lawyer = fields.Char(string="Lawyer")
-    type_of_matter = fields.Char(string='Type Of Matter')
-    category_of_matter = fields.Char(string='Category Of Matter', required=True)
+    client = fields.Char(string='Customer', domain=[('state', '=', 'in_progress')])
+    lawyer = fields.Char(string="Lawyer", domain=[('state', '=', 'in_progress')])
+    type_of_matter = fields.Char(string='Type Of Matter', domain=[('state', '=', 'in_progress')])
+    category_of_matter = fields.Char(string='Category Of Matter', required=True, domain=[('state', '=', 'in_progress')])
     close_date = fields.Date(string='Close Date')
     matter = fields.Char(string='Matter')
     judge = fields.Char(string="Judge")
     number = fields.Char(string="Number")
-    matter_id = fields.One2many('matters.data', 'matter_id_inverse', string="Matter")
+    # matter_id = fields.One2many('matters.data', 'matter_id_inverse', string="Matter")
     # matter_doc = fields.One2many('matter.documents', 'matter_documents_inverse')
     matter_time = fields.One2many('matter.time', 'matter_time_inverse')
     matter_date = fields.One2many('matter.date', 'matter_date_inverse')
     upload = fields.Binary(string="Upload")
     description = fields.Text()
-    state = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'),
+    state = fields.Selection([('draft', 'Draft'), ('approved', 'Approved'), ('payment', 'Payment'),
                                      ('in_progress', 'In Progress'), ('won', 'Won'), ('loss', 'Loss')], default='draft')
     act_data = fields.One2many('act.data', 'act_data_inverse')
     matter_trial = fields.One2many('matter.trial', 'matter_trial_inverse')
@@ -57,6 +57,8 @@ class MatterTrail(models.Model):
 
     @api.multi
     def action_payment(self):
+        for rec in self:
+            rec.matter_trial_inverse.state = "payment"
         invoice = self.env['account.invoice'].create({
             'partner_id': self.matter_trial_inverse.id,
             # 'payment_term_id': self.trial_matter,
@@ -80,14 +82,14 @@ class ActData(models.Model):
     case_category = fields.Char(string="Case Category", related="act_data_inverse.type_of_matter")
 
 
-class MatterData(models.Model):
-    _name = 'matters.data'
-
-    client_name = fields.Char(string="Name", related="matter_id_inverse.client")
-    client_no = fields.Char(string="Contact Number")
-    client_address = fields.Char(string="Address")
-    client_email = fields.Char(string="Email")
-    matter_id_inverse = fields.Many2one('matters.details')
+# class MatterData(models.Model):
+#     _name = 'matters.data'
+#
+#     client_name = fields.Char(string="Name", related="matter_id_inverse.client")
+#     client_no = fields.Char(string="Contact Number")
+#     client_address = fields.Char(string="Address")
+#     client_email = fields.Char(string="Email")
+#     matter_id_inverse = fields.Many2one('matters.details')
 
 
 class MatterTime(models.Model):

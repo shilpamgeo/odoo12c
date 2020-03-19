@@ -4,9 +4,7 @@ access_case_line_id,access_case_line,legal_case_management.model_case_case_line,
 access_note_id,access_note,legal_case_management.model_notes_notes,base.group_user,1,1,1,0
 access_court_id,access_court,legal_case_management.model_court_court,base.group_user,1,1,1,0
 client_request_global_access,client_request_global_access,model_client_request,,1,1,1,1
-client_confirm_global_access,client_confirm_global_access,model_client_confirm,,1,1,1,1
 matter_details_id,matter_details,model_matters_details,,1,1,1,1
-matter_data_id,matter_data,model_matters_data,,1,1,1,1
 matter_time_id,matter_time,model_matter_time,,1,1,1,1
 matter_date_id,matter_date,model_matter_date,,1,1,1,1
 contract_wage_id,contract_wage,model_contract_wage,,1,1,1,1

@@ -123,7 +123,7 @@ class PartnerForm(models.Model):
     _order = "id desc"
 
     # customer_val = fields.Many2one('client.request', domain="[('state','=','approved')]")
-    customer = fields.Boolean(string='Is a Client', default=True)
+    customer = fields.Boolean(string='Is a Client', default=False)
     client_request_count = fields.Integer(compute='set_client_request_count', string='Client Request')
     case_count = fields.Integer(compute="get_case_count")
 
@@ -207,23 +207,51 @@ class Lawyers(models.Model):
     _inherit = 'hr.employee'
 
     emp_id = fields.Many2one('hr.contract')
+    lawyer_case_count = fields.Integer(compute="get_lawyer_case_count")
 
     @api.multi
-    def action_report(self):
-        # datas = {'emp_id': self.emp_id}
-        return self.env.ref('legal_case_management.action_report_lawyer_data').report_action(self)
+    def lawyer_request_matter(self):
+        return {
+            'name': _('Case Count'),
+            'domain': [('lawyer', '=', self.id), ('state', '=', 'approved')],
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'client.request',
+            'view_id': False,
+            'type': 'ir.actions.act_window',
+        }
+
+    def get_lawyer_case_count(self):
+        count = self.env['client.request'].search_count([('lawyer', '=', self.id), ('state', '=', 'approved')])
+        self.lawyer_case_count = count
+
+    # @api.multi
+    # def lawyer_action_report(self):
+    #     return self.env.ref('legal_case_management.action_report_lawyer_data').report_action(self)
 
 
-# class LawyerReport(models.Model):
-#     _name = 'report.legal_case_management.lawyer_report_template'
-#
-#     @api.model
-#     def _get_report_values(self, docids, data=None):
-#         x = data['emp_id']
-#         return {
-#             'doc_ids': docids,
-#             'x':x
-#         }
+class LawyerReport(models.AbstractModel):
+    _name = 'report.legal_case_management.lawyer_report_template'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['hr.employee'].browse(docids[0])
+        appointments = self.env['client.request'].search([('lawyer', '=', docids[0])])
+        appointment_list = []
+        for app in appointments:
+            vals = {
+                'lawyer': app.lawyer.name,
+                'matter_name': app.matter_name,
+                'name': app.name.name,
+                'matter_type_value': app.matter_type_value.matter_name,
+            }
+            appointment_list.append(vals)
+        return {
+            'doc_model': 'hr.employee',
+            'data': data,
+            'docs': docs,
+            'appointment_list': appointment_list,
+        }
 
 
 

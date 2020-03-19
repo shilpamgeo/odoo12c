@@ -8,33 +8,22 @@
             <xpath expr="//field[@name='notes']" position="before">
                 <group>
                     <group>
-
                          <field  name="emp_id" invisible="1"/>
-<!--                        <field name="wage_per_case"/>-->
-<!--                        <field name="institute_name"/>-->
-
                     </group>
 
-<!--                        <group>-->
-<!--                             <field name="start_work"/>-->
-<!--                            <field name="end_work"/>-->
-<!--                            <field name="lunch_hour"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                            <field name="work_hours"/>-->
-<!--                            <field name="total_hours"/>-->
-<!--                            <field name="per_hour"/>-->
-<!--                        </group>-->
-<!--                        <group>-->
-<!--                            <field name="salary"/>-->
-<!--                        </group>-->
                 </group>
-
             </xpath>
+
             <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
-                <header>
-                    <button name="action_report" type="object" class="oe_highlight" string="Print Matter Report"/>
-                </header>
+                 <button name="lawyer_request_matter"
+                            class="oe_stat_button"
+                            icon="fa-bars"  type="object">
+                            <field name="lawyer_case_count" widget="statinfo"/>
+                    </button>
+
+<!--                 <header>-->
+<!--                    <button name="lawyer_action_report" type="object" class="oe_highlight" string="Print Matter Report"/>-->
+<!--                </header>-->
                 <!-- Add your fields or attributes here -->
             </xpath>
         </field>

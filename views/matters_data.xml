@@ -9,7 +9,7 @@
                 <header>
                     <button name="action_approved" string="Approval" class="oe_highlight" type="object" states="draft"/>
                     <button name="action_progress" string="In Progress" class="oe_highlight" type="object"
-                            states="approved"/>
+                            states="payment"/>
                     <button name="action_won" string="Won" class="oe_highlight" type="object" states="in_progress"/>
                     <button name="action_loss" string="Loss" class="oe_highlight" type="object" states="in_progress"/>
                     <field name="state" widget="statusbar"/>
@@ -37,15 +37,15 @@
                         </field>
                     </page>
                     <page name="matter_master_contact_entries" string="Contact">
-                        <field name="matter_id">
-                            <tree editable="bottom">
-                                <field name="client_name"/>
-                                <field name="client_no"/>
-                                <field name="client_address"/>
-                                <field name="client_email"/>
-                                <field name="matter_id_inverse" invisible="1"/>
-                            </tree>
-                        </field>
+<!--                        <field name="matter_id">-->
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="client_name"/>-->
+<!--                                <field name="client_no"/>-->
+<!--                                <field name="client_address"/>-->
+<!--                                <field name="client_email"/>-->
+<!--                                <field name="matter_id_inverse" invisible="1"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
                     </page>
                      <page name="matter_master_act_trials" string="Trials">
                         <field name="matter_trial">
@@ -58,7 +58,7 @@
                                 <button name="action_payment" type="object"
                                         string="Make Payment" class="oe_highlight"
                                         attrs="{'invisible':[('matter_state', 'in',
-                                        ('draft', 'approved', 'won', 'loss'))]}"/>
+                                        ('draft', 'in_progress', 'won', 'loss'))]}"/>
                             </tree>
                         </field>
                     </page>
