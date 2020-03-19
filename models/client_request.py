@@ -2,10 +2,10 @@ from odoo import models, fields, api,_
 from odoo.exceptions import Warning, ValidationError
 
 
-class ClientConfirm(models.Model):
-    _name = 'client.confirm'
-
-    name = fields.Char(string='Customer', required=True)
+# class ClientConfirm(models.Model):
+#     _name = 'client.confirm'
+# 
+#     name = fields.Char(string='Customer', required=True)
 
 
 class ClientRequest(models.Model):
