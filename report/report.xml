@@ -4,50 +4,52 @@
         <template id="lawyer_report_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="web.external_layout"><br/>
+                    <t t-call="web.external_layout">
+                        <br/>
                         <div class="article">
-                        <div class="page">
-                            <div class="oe_structure"/>
-                            <div class="row">
-                                <div class="col-xs-3" style="margin:auto;">
-						        </div>
-                                <center>
+                            <div class="page">
+                                <div class="oe_structure"/>
+                                <div class="row">
                                     <div class="col-xs-3" style="margin:auto;">
-                                        <table class="table table-condensed"
-                                            style="border-bottom: 0px solid white !important;width: 3in;">
-                                            <t t-foreach="appointment_list" t-as="app">
-                                                <tr>
-                                                    <td>
-                                                        <span t-esc="app['lawyer']"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="app['name']"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="app['matter_name']"/>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="app['matter_type_value']"/>
-                                                    </td>
-                                                </tr>
-                                            </t>
-                                        </table>
                                     </div>
-                                </center>
+                                    <center>
+                                        <div class="col-xs-3" style="margin:auto;">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <th>Client Name</th>
+                                                    <th>Case Name</th>
+                                                    <th>Case Type</th>
+                                                </thead>
+                                                <t t-foreach="appointment_list" t-as="app">
+                                                    <tr>
+                                                        <td>
+                                                            <span t-esc="app['name']"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="app['matter_name']"/>
+                                                        </td>
+                                                        <td>
+                                                            <span t-esc="app['matter_type_value']"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </div>
+                                    </center>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </t>
                 </t>
             </t>
         </template>
         <report
-            string="Case Details"
-            id="action_report_lawyer_data"
-            model="hr.employee"
-            name="legal_case_management.lawyer_report_template"
-            file="legal_case_management.lawyer_report_template"
-            report_type="qweb-pdf"
+                string="Case Details"
+                id="action_report_lawyer_data"
+                model="hr.employee"
+                name="legal_case_management.lawyer_report_template"
+                file="legal_case_management.lawyer_report_template"
+                report_type="qweb-pdf"
         />
     </data>
 </odoo>

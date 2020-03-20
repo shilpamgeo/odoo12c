@@ -225,10 +225,6 @@ class Lawyers(models.Model):
         count = self.env['client.request'].search_count([('lawyer', '=', self.id), ('state', '=', 'approved')])
         self.lawyer_case_count = count
 
-    # @api.multi
-    # def lawyer_action_report(self):
-    #     return self.env.ref('legal_case_management.action_report_lawyer_data').report_action(self)
-
 
 class LawyerReport(models.AbstractModel):
     _name = 'report.legal_case_management.lawyer_report_template'

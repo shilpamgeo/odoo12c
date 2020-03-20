@@ -2,12 +2,6 @@ from odoo import models, fields, api,_
 from odoo.exceptions import Warning, ValidationError
 
 
-# class ClientConfirm(models.Model):
-#     _name = 'client.confirm'
-#
-#     name = fields.Char(string='Customer', required=True)
-
-
 class ClientRequest(models.Model):
     _name = 'client.request'
     _rec_name = 'name'
@@ -28,7 +22,7 @@ class ClientRequest(models.Model):
     matter_name = fields.Char(string="Matter Name", required=True)
     matter_type_value = fields.Many2one("matter.type", string="Matter Type", required=True)
     description_of_matter = fields.Text("Description")
-    payment_type = fields.Boolean("Payment Type:Trials")
+    # payment_type = fields.Boolean("Payment Type:Trials")
 
     @api.multi
     def action_request(self):
@@ -37,12 +31,9 @@ class ClientRequest(models.Model):
 
     @api.multi
     def action_approve(self):
-        self.env['res.partner'].create({
-            'name': self.name.name,
-            'street': self.address,
-            'phone': self.phone,
-            'email': self.email,
-        })
+        record = self.env['res.partner'].search([])
+        for i in record:
+            i.customer = True
         self.env['matters.details'].create({
             'client': self.name.name,
             'category_of_matter': self.matter_name,

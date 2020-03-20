@@ -41,6 +41,7 @@
         'views/legal_universities.xml',
         'views/client_services.xml',
         'views/hr_contract.xml',
+        'data/cron.xml',
         # 'views/lawyer_report.xml',
         'security/security.xml',
         'report/report.xml',

@@ -14,8 +14,6 @@ class MatterDetails(models.Model):
     matter = fields.Char(string='Matter')
     judge = fields.Char(string="Judge")
     number = fields.Char(string="Number")
-    # matter_id = fields.One2many('matters.data', 'matter_id_inverse', string="Matter")
-    # matter_doc = fields.One2many('matter.documents', 'matter_documents_inverse')
     matter_time = fields.One2many('matter.time', 'matter_time_inverse')
     matter_date = fields.One2many('matter.date', 'matter_date_inverse')
     upload = fields.Binary(string="Upload")
@@ -43,7 +41,7 @@ class MatterDetails(models.Model):
     @api.multi
     def action_loss(self):
         for rec in self:
-            rec.state = "Loss"
+            rec.state = "loss"
 
 
 class MatterTrail(models.Model):
@@ -80,16 +78,6 @@ class ActData(models.Model):
     act_no = fields.Char(string="Section Number")
     act_name = fields.Char(string="Act Name")
     case_category = fields.Char(string="Case Category", related="act_data_inverse.type_of_matter")
-
-
-# class MatterData(models.Model):
-#     _name = 'matters.data'
-#
-#     client_name = fields.Char(string="Name", related="matter_id_inverse.client")
-#     client_no = fields.Char(string="Contact Number")
-#     client_address = fields.Char(string="Address")
-#     client_email = fields.Char(string="Email")
-#     matter_id_inverse = fields.Many2one('matters.details')
 
 
 class MatterTime(models.Model):
